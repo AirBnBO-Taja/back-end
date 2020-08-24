@@ -6,7 +6,10 @@ const jwt = require("jsonwebtoken");
 const Users = require("./auth-model");
 
 router.post("/register", (req, res) => {
-  const credentials = req.body;
+  
+  const credentials = {name, email, password}
+
+  credentials = req.body;
 
   const rounds = process.env.BCRYPT_ROUNDS || 8;
   const hash = bcrypjs.hashSync(credentials.password, rounds);
