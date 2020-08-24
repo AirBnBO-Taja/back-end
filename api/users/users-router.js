@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Instructor = require("./instructors-model");
 
+// change to get all properties
 router.get("/all", (req, res) => {
   Instructor.getAllClasses()
     .then((classes) => res.status(201).json({ data: classes }))
@@ -9,6 +10,7 @@ router.get("/all", (req, res) => {
     });
 });
 
+// change to get all listings
 router.get("/", (req, res) => {
   const { userId } = req.jwt;
 
@@ -19,6 +21,7 @@ router.get("/", (req, res) => {
     });
 });
 
+// change to get property by id
 router.get("/:id", async (req, res) => {
   try {
     const requestedClass = await Instructor.findById(req.params.id);
@@ -29,6 +32,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//change to post property
 router.post("/", (req, res) => {
   const { userId } = req.jwt;
   const aClass = req.body;
@@ -43,6 +47,8 @@ router.post("/", (req, res) => {
     });
 });
 
+
+//change to put property
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
@@ -62,6 +68,7 @@ router.put("/:id", async (req, res) => {
     });
 });
 
+//change to delete property
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   const { userId } = req.jwt;
