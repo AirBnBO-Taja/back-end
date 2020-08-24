@@ -1,11 +1,11 @@
 {
-  
+
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "server": "cross-env NODE_ENV=development nodemon -r dotenv/config index.js"
   },
   "repository": {
