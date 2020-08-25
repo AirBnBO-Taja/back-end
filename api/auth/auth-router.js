@@ -1,29 +1,45 @@
 const router = require("express").Router();
 
-const bcrypjs = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const Users = require("./auth-model");
 
-router.post("/register", (req, res) => {
+// router.post("/register", (req, res) => {
   
-  const credentials = {name, email, password}
+//   const {name, email, password} = req.body
+//   const rounds = process.env.BCRYPT_ROUNDS || 8;
+//   const hash = bcrypjs.hashSync(password, rounds);
+//   password  = hash
 
-  credentials = req.body;
-
-  const rounds = process.env.BCRYPT_ROUNDS || 8;
-  const hash = bcrypjs.hashSync(credentials.password, rounds);
-  credentials.password = hash;
-
-  Users.add(credentials)
-    .then((user) => {
-      const token = makeJwt(user);
-      res.status(201).json({ data: user, token });
-    })
-    .catch((error) => {
-      res.status(500).json({ message: error.message });
-    });
-});
+//   Users.add(name, email, hash)
+//     .then((user) => {
+//       const token = makeJwt(user);
+//       res.status(201).json({ data: user, token });
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ message: error.message });
+//     });
+// });
+router.post('/register', async (req, res, next) => {
+	try {
+		const { name, email, password } = req.body
+		const user = await Users.findBy({ name }).first()
+		if (user) {
+			return res.status(409).json({
+				message: 'User already taken'
+			})
+		}
+		const newUser = await Users.add({
+      name,
+      email,
+			password: await bcryptjs.hash(password, process.env.NODE_ENV === 'production' ? 10 : 1)
+		})
+		res.status(201).json(newUser)
+	} catch (err) {
+		next(err)
+	}
+})
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
