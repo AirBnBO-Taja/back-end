@@ -46,7 +46,7 @@ router.post("/login", (req, res) => {
 
   Users.findBy({ email: email })
     .then((user) => {
-      if (user && bcrypjs.compareSync(password, user.password)) {
+      if (user && bcryptjs.compareSync(password, user.password)) {
         const token = makeJwt(user);
         res
           .status(200)
