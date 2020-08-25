@@ -43,73 +43,74 @@ router.post('/register', async (req, res, next) => {
 	}
 })
 
-router.post("/login", auth, (req, res) => {
-  const { email, password } = req.body;
-
-  Users.findBy({ email: email })
-    .then((user) => {
-      if (user && bcryptjs.compareSync(password, user.password)) {
-        const token = makeJwt(user);
-        res
-          .status(200)
-          .json({ message: "Welcome to Air BnB Api", token });
-      } else {
-        res.status(401).json({ message: "Invalid credentials" });
-      }
-    })
-    .catch((error) => {
-      res.status(500).json({ message: error.message });
-    });
-});
-
-// router.post('/login', async (req, res, next) => {
-// 	try {
-// 		const { name, email, password } = req.body
-// 		const user = await Users.findBy({ name }).first()
-
-// 		if (!user) {
-// 			return res.status(400).json({
-// 				message: 'Invalid Credentials'
-// 			})
-// 		}
-// 		const passwordValid = await bcrypt.compare(password, user.password)
-
-// 		if (!passwordValid) {
-// 			return res.status(400).json({
-// 				message: 'Invalid Credentials'
-// 			})
-// 		}
-// 		const payload = {
-// 			userId: user.id,
-// 			name: user.name,
-// 			email: user.email,
-
-// 		}
-// 		const token = jwt.sign(payload, process.env.JWT_SECRET || 'silence, I will kill you')
-// 		res.cookie('token', token)
-// 		res.json({
-// 			message: `Welcome ${user.name}!`,
-// 			token: token
-// 		})
-// 	} catch (err) {
-// 		next(err)
-// 	}
-// })
 
 
-const makeJwt = (user) => {
-  const payload = {
-    userId: user.id,
-    email: user.email,
-    // role: user.role, // don't think I need roll
-  };
+router.post('/login', async (req, res, next) => {
+	try {
+		const { name, email, password } = req.body
+		const user = await Users.findBy({ email }).first()
 
-  const secret = process.env.JWT_SECRET || "silence, I will kill you";
+		if (!user) {
+			return res.status(400).json({
+				message: 'Invalid Credentials'
+			})
+		}
+		const passwordValid = await bcryptjs.compare(password, user.password)
 
-  const options = {
-    expiresIn: "1h",
-  };
-  return jwt.sign(payload, secret, options);
-};
+		if (!passwordValid) {
+			return res.status(400).json({
+				message: 'Invalid Credentials'
+			})
+		}
+		const payload = {
+			userId: user.id,
+			name: user.name,
+			email: user.email,
+
+		}
+		const token = jwt.sign(payload, process.env.JWT_SECRET || 'silence, I will kill you')
+		res.cookie('token', token)
+		res.json({
+			message: `Welcome ${user.name}!`,
+			token: token
+		})
+	} catch (err) {
+		next(err)
+	}
+})
+
+// router.post("/login", auth, (req, res) => {
+//   const { email, password } = req.body;
+
+//   Users.findBy({ email: email })
+//     .then((user) => {
+//       if (user && bcryptjs.compareSync(password, user.password)) {
+//         const token = makeJwt(user);
+//         res
+//           .status(200)
+//           .json({ message: "Welcome to Air BnB Api", token });
+//       } else {
+//         res.status(401).json({ message: "Invalid credentials" });
+//       }
+//     })
+//     .catch((error) => {
+//       res.status(500).json({ message: error.message });
+//     });
+// });
+
+// const makeJwt = (user) => {
+//   const payload = {
+//     userId: user.id,
+//     email: user.email,
+//     // role: user.role, // don't think I need roll
+//   };
+
+  // const secret = process.env.JWT_SECRET || "silence, I will kill you";
+
+  // const options = {
+  //   expiresIn: "1h",
+  // };
+//   return jwt.sign(payload, secret, options);
+// };
 
 module.exports = router;
