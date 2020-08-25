@@ -62,6 +62,41 @@ router.post("/login", auth, (req, res) => {
     });
 });
 
+// router.post('/login', async (req, res, next) => {
+// 	try {
+// 		const { name, email, password } = req.body
+// 		const user = await Users.findBy({ name }).first()
+
+// 		if (!user) {
+// 			return res.status(400).json({
+// 				message: 'Invalid Credentials'
+// 			})
+// 		}
+// 		const passwordValid = await bcrypt.compare(password, user.password)
+
+// 		if (!passwordValid) {
+// 			return res.status(400).json({
+// 				message: 'Invalid Credentials'
+// 			})
+// 		}
+// 		const payload = {
+// 			userId: user.id,
+// 			name: user.name,
+// 			email: user.email,
+
+// 		}
+// 		const token = jwt.sign(payload, process.env.JWT_SECRET || 'silence, I will kill you')
+// 		res.cookie('token', token)
+// 		res.json({
+// 			message: `Welcome ${user.name}!`,
+// 			token: token
+// 		})
+// 	} catch (err) {
+// 		next(err)
+// 	}
+// })
+
+
 const makeJwt = (user) => {
   const payload = {
     userId: user.id,
