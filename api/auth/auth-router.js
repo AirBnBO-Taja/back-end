@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const Users = require("./auth-model");
 
+const auth = require ("../../middleware/user-restricted");
+
 // router.post("/register", (req, res) => {
   
 //   const {name, email, password} = req.body
@@ -41,7 +43,7 @@ router.post('/register', async (req, res, next) => {
 	}
 })
 
-router.post("/login", (req, res) => {
+router.post("/login", auth, (req, res) => {
   const { email, password } = req.body;
 
   Users.findBy({ email: email })
