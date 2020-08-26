@@ -1,6 +1,7 @@
 const express = require("express");
 const authRouter = require("../auth/auth-router");
 const propertiesRouter = require("../properties/properties-router");
+const listingsRouter = require("../listings/listings-router")
 const helmet = require("helmet");
 const cors = require("cors");
 
@@ -18,6 +19,7 @@ server.get("/", (req, res) => {
 
 server.use("/api/auth", authRouter);
 server.use("/api/properties", restricted, propertiesRouter);
+server.use('/api/listings', restricted, listingsRouter)
 
 
 

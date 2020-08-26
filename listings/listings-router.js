@@ -1,54 +1,54 @@
 const express = require("express");
-const properties = require("./listings-model")
+const listings = require("./listings-model")
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  properties
-    .getProperties()
-    .then((properties) => {
-      if (properties) {
-        res.status(200).json({ properties, decodedToken: req.decodedToken });
+  listings
+    .getListings()
+    .then((listings) => {
+      if (listings) {
+        res.status(200).json({ listings, decodedToken: req.decodedToken });
       } else {
-        res.status(404).json({ message: "Can't get the list of properties." });
+        res.status(404).json({ message: "Can't get the list of listings." });
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Error getting the classes." });
+      res.status(500).json({ message: "Error getting the listings." });
     });
 });
 
 router.get("/:id", (req, res) => {
-  properties
-    .getPropertyById(req.params.id)
-    .then((properties) => {
-      if (properties) {
-        res.status(200).json({ properties, decodedToken: req.decodedToken });
+  listings
+    .getListingById(req.params.id)
+    .then((listings) => {
+      if (listings) {
+        res.status(200).json({ listings, decodedToken: req.decodedToken });
       } else {
-        res.status(404).json({ message: "Class with this id doesn't exist." });
+        res.status(404).json({ message: "Listing with this id doesn't exist." });
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Error getting the properties by id." });
+      res.status(500).json({ message: "Error getting the listings by id." });
     });
 });
 
 router.post("/", (req, res) => {
-  properties
-    .addProperty(req.body)
-    .then((properties) => {
-      res.status(200).json({ properties, decodedToken: req.decodedToken });
+  listings
+    .addListing(req.body)
+    .then((listings) => {
+      res.status(200).json({ listings, decodedToken: req.decodedToken });
     })
     .catch((err) => {
-      res.status(500).json({ message: "Can't post the property." });
+      res.status(500).json({ message: "Can't post the Listing." });
     });
 });
 
 router.put("/:id", (req, res) => {
-  properties
-    .updateProperty(req.params.id, req.body)
-    .then((properties) => {
-      if (properties) {
-        res.status(200).json({ properties, decodedToken: req.decodedToken });
+  listings
+    .updateListing(req.params.id, req.body)
+    .then((listings) => {
+      if (listings) {
+        res.status(200).json({ listings, decodedToken: req.decodedToken });
       } else {
         res.status(404).json({ message: "Incorrect information provided." });
       }
@@ -56,22 +56,22 @@ router.put("/:id", (req, res) => {
     .catch((err) => {
       res
         .status(500)
-        .json({ message: "There was an error updating the property." });
+        .json({ message: "There was an error updating the Listing." });
     });
 });
 
 router.delete("/:id", (req, res) => {
-  properties
-    .removeProperty(req.params.id)
-    .then((properties) => {
-      if (properties) {
-        res.status(200).json({ properties, decodedToken: req.decodedToken });
+  listings
+    .removeListing(req.params.id)
+    .then((listings) => {
+      if (listings) {
+        res.status(200).json({ listings, decodedToken: req.decodedToken });
       } else {
-        res.status(404).json({ message: "Property with this id doesn't exist." });
+        res.status(404).json({ message: "Listing with this id doesn't exist." });
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: "Error deleting the property." });
+      res.status(500).json({ message: "Error deleting the Listing." });
     });
 });
 
@@ -79,7 +79,7 @@ module.exports = router;
 
 // router.get('/', async (req, res, next) =>{
 //   try{
-//     res.status(200).json( await properties.getProperties())
+//     res.status(200).json( await listings.getlistings())
 //   } catch(error){
 //     next(error)
 //   }
