@@ -10,12 +10,14 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
+const restricted = require("../auth/restricted-middleware");
+
 server.get("/", (req, res) => {
   res.status(200).json({ Welcome: "to AirBnB Server" });
 });
 
 server.use("/api/auth", authRouter);
-server.use("/api/properties", propertiesRouter);
+server.use("/api/properties", restricted, propertiesRouter);
 
 
 

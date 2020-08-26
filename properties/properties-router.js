@@ -1,20 +1,29 @@
 const express = require("express");
 const user = require("../users/users-model");
-const restricted = require("../auth/restricted-middleware");
+const properties = require("./properties-model")
+// const restricted = require("../auth/restricted-middleware");
 const router = express.Router();
 
-function checkUser(user) {
-  return (req, res, next) => {
-    if (req.decodedToken === !null) {
-      next();
-    } else {
-      res.status(403).json({ message: "You are not authorized" });
-    }
-  };
-}
+// function checkUser(user) {
+//   return (req, res, next) => {
+//     if (req.decodedToken === !null) {
+//       next();
+//     } else {
+//       res.status(403).json({ message: "You are not authorized" });
+//     }
+//   };
+// }
 
-router.get("/", restricted, checkUser("user"), (req, res) => {
-  user
+// router.get('/', async (req, res, next) =>{
+//   try{
+//     res.status(200).json( await properties.getProperties())
+//   } catch(error){
+//     next(error)
+//   }
+// })
+
+router.get("/", (req, res) => {
+  properties
     .getProperties()
     .then((properties) => {
       if (properties) {
