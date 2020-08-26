@@ -1,5 +1,5 @@
 const express = require("express");
-const properties = require("./properties-model")
+const properties = require("./listings-model")
 const router = express.Router();
 
 router.get("/", (req, res) => {
