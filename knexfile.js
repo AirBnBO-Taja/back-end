@@ -1,7 +1,7 @@
 // Update with your config settings.
 require("dotenv").config();
 
-const pgConnection = process.env.DATABASE_URL || "postgresql://postgres@localhost/auth"
+const pgConnection = process.env.DATABASE_URL || "postgresql://postgres@localhost/auth" // <- this is needed for postgress integration with Heroku
 
 module.exports = {
   development: {
