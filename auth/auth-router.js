@@ -48,6 +48,7 @@ router.post('/login', async (req, res, next) => {
 			email: user.email,
 
 		}
+		
 		const token = jwt.sign(payload, process.env.JWT_SECRET || 'silence, I will kill you')
 		res.cookie('token', token)
 		res.json({
