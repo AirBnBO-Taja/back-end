@@ -21,6 +21,4 @@ server.use("/api/auth", authRouter);
 server.use("/api/properties", restricted, propertiesRouter);
 server.use('/api/listings', restricted, listingsRouter)
 
-
-
 module.exports = server;
