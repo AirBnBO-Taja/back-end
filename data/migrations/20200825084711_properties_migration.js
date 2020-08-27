@@ -8,13 +8,13 @@ exports.up = async function(knex) {
         // table.string("property_type").notNullable();
         // table.string("leaseable_area").notNullable();
         // table.string("parking").notNullable();
-        table.integer("bedrooms").notNullable();
-        table.integer("beds").notNullable();
-        table.integer("guests_included").notNullable();
-        table.integer("minumum_nights").notNullable();
-        table.integer("maximum_nights").notNullable();
-        table.integer("bathrooms").notNullable();
-        table.integer("accomodates").notNullable();
+        table.string("bedrooms").notNullable();
+        table.string("beds").notNullable();
+        table.string("guests_included").notNullable();
+        table.string("minumum_nights").notNullable();
+        table.string("maximum_nights").notNullable();
+        table.string("bathrooms").notNullable();
+        table.string("accomodates").notNullable();
         // table.string("upgrades")
         // table.string("special_remarks")
     })
