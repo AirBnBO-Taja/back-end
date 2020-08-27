@@ -5,13 +5,18 @@ exports.up = async function(knex) {
         table.string("street_address", 128).notNullable();
         table.string("city").notNullable();
         table.string("zip").notNullable();
-        table.string("property_type").notNullable();
-        table.string("leaseable_area").notNullable();
-        table.string("parking").notNullable();
-        table.string("bedrooms").notNullable();
-        table.string("bathrooms").notNullable();
-        table.string("upgrades")
-        table.string("special_remarks")
+        // table.string("property_type").notNullable();
+        // table.string("leaseable_area").notNullable();
+        // table.string("parking").notNullable();
+        table.integer("bedrooms").notNullable();
+        table.integer("beds").notNullable();
+        table.integer("guests_included").notNullable();
+        table.integer("minumum_nights").notNullable();
+        table.integer("maximum_nights").notNullable();
+        table.integer("bathrooms").notNullable();
+        table.integer("accomodates").notNullable();
+        // table.string("upgrades")
+        // table.string("special_remarks")
     })
 };
 

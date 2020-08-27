@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 
 const Users = require("../users/users-model");
 
+const {validation} = require('./user-middleware')
+
 router.post('/register', async (req, res, next) => {
 	try {
 		const { name, email, password } = req.body
@@ -25,7 +27,7 @@ router.post('/register', async (req, res, next) => {
 	}
 })
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', validation, async (req, res, next) => {
 	try {
 		const { name, email, password } = req.body
 		const user = await Users.findBy({ email }).first()
