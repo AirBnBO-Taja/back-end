@@ -39,7 +39,9 @@ router.post("/", (req, res) => {
       res.status(200).json({ properties, decodedToken: req.decodedToken });
     })
     .catch((err) => {
-      res.status(500).json({ message: "Can't post the property." });
+      console.log(err)
+      res.status(500).json({ error: err, message: "Can't post the property. (err code 500)" });
+
     });
 });
 
